@@ -13,7 +13,7 @@ public class CrawlSongExample {
 
     public static void main(String[] args) {
         try {
-            URL url = new URL("https://ln.hako.re/truyen/6443-garbage-brave-isekai-ni-shoukan-sare-suterareta-yuusha-no-fukushuu-monogatari/c77632-chuong-04-thoi-khong-ma-phap-phan-3");
+            URL url = new URL("https://www.bbc.com/news");
             // open the stream and put it into BufferedReader
             Scanner scanner = new Scanner(new InputStreamReader(url.openStream()));
             scanner.useDelimiter("\\Z");
@@ -22,11 +22,16 @@ public class CrawlSongExample {
             scanner.close();
             // remove all new line
             content = content.replaceAll("\n+", "");
+            content = content.replaceAll("&#x27", "");
+            content = content.replaceAll("</span></span></a></span></li><li", "");
             // regex
-            Pattern p = Pattern.compile("<p id=\"(.*?)</p>");
+            Pattern p = Pattern.compile("gs-c-promo-heading__title gel-pica-bold nw-o-link-split__text\">Australian(.*?)</h3>");
              Matcher m = p.matcher(content);
             while (m.find()) {
-                System.out.println(m.group(0));
+//                if (m.group(1).contains("Hãy")){
+//                    int i = m.group(1).length();
+                    System.out.println(m.group(1));
+//                }
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
